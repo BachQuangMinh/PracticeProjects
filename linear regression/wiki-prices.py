@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from scipy import stats
 import matplotlib.pyplot as plt
 #Preprocessing steps, selecting and calculating necessary columns and transform the data
-df = pd.read_csv('C:\\Users\\DELL\\Google Drive\\JVN couse materials\\Projects\\Learn coding\\linear regression\\WIKI-PRICES.csv')
+df = pd.read_csv('C:\\Users\\DELL\\Google Drive\\JVN couse materials\\Projects\\Practice projects\\linear regression\\WIKI-PRICES.csv')
 df = df[['adj_open','adj_high','adj_low','adj_close','adj_volume']]
 df.loc[:,'PCT_Change'] = pd.Series((df['adj_close']-df['adj_open'])/df['adj_open']*100, index=df.index).values
 df.loc[:,'HL_PCT'] = pd.Series((df['adj_high']-df['adj_low'])/df['adj_low']*100, index=df.index).values
