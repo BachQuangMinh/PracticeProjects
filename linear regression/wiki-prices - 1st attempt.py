@@ -7,19 +7,35 @@ from scipy import stats
 import matplotlib.pyplot as plt
 #Preprocessing steps, selecting and calculating necessary columns and transform the data
 df = pd.read_csv('C:\\Users\\DELL\\Google Drive\\JVN couse materials\\Projects\\Practice projects\\linear regression\\WIKI-PRICES.csv')
+    #Explore the data
+df.isnull().sum()
+df.describe()
+df.std()
+df['open'].hist()
+plt.show()
+    #Feature selection
 df = df[['adj_open','adj_high','adj_low','adj_close','adj_volume']]
-df.loc[:,'PCT_Change'] = pd.Series((df['adj_close']-df['adj_open'])/df['adj_open']*100, index=df.index).values
-df.loc[:,'HL_PCT'] = pd.Series((df['adj_high']-df['adj_low'])/df['adj_low']*100, index=df.index).values
-#df = df[['adj_close', 'HL_PCT', 'PCT_Change', 'adj_volume']]
-df = df[['adj_close', 'HL_PCT', 'PCT_Change']]
-#The next questions to ask is what will be the labels? or classes? We're trying to predict the price.
-#Therefore the future price will be the label. Then what would be the features? they are: the current price, the PCT change, the HL_PCT 
+df['OC_PercentageChange'] = (df['adj_close']-df['adj_open'])/df['adj_open']*100
+df['HL_PercentageChange'] = (df['adj_high']-df['adj_low'])/df['adj_low']*100
+df = df[['adj_close', 'HL_PercentageChange', 'OC_PercentageChange', 'adj_volume']]
+
+#df = df[['adj_close', 'HL_PercentageChange', 'OC_PercentageChange']]
+
+#The next questions to ask are: what will be the labels? or classes?
+#-->We're trying to predict the closed price (adj-closed)
+#-->Then what would be the features? 
+#-->they are: the current adj-closed price, HL_PercentageChange, OC_PercentageChange,  adj_volume
+
 forecast_col = 'adj_close' #just a place holder for the label one wants to predict.
-df.fillna(value = -999999999,inplace = True) #just fill in the missing value with an outlier
+#df.fillna(value = -999999999,inplace = True) #just fill in the missing value with an outlier
 forecast_out = int(math.ceil(0.001*len(df))) #the number of days in the future we want to predict
-df['label'] = df[forecast_col].shift(-forecast_out) #shift the forecast_col up 0.001*len(df), in this case we just wanna predict 1 next day using the adj_close of previous days.
+df['label'] = df[forecast_col].shift(-forecast_out) 
+#shift the forecast_col up 0.001*len(df)
+#in this case we just wanna predict 10 next day using the adj_close of previous days.
+#df.dropna(inplace=True)
+
 SampleForPrediction = np.array(df[-10:].drop(['label'],1)) #take the last 10 rows for prediction
-df.dropna(inplace=True)
+
 X = np.array(df.drop(['label'], 1))
 y = np.array(df['label'])
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
