@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 import itertools
 #Preprocessing steps, selecting and calculating necessary columns and transform the data
-df = pd.read_csv('C:\\Users\\DELL\\Google Drive\\JVN couse materials\\Projects\\Learn coding\\logistic regression\\breast-cancer-wisconsin.csv')
+df = pd.read_csv('C:\\Users\\DELL\\Google Drive\\JVN couse materials\\Projects\\Practice projects\\logistic regression\\breast-cancer-wisconsin.csv')
     #explore the data
 df.describe()
 df.std()
