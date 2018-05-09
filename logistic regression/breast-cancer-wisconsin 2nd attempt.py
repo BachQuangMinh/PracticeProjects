@@ -10,7 +10,7 @@ df = pd.read_csv('C:\\Users\\DELL\\Google Drive\\JVN couse materials\\Projects\\
     #explore the data
 df.describe()
 df.std()
-#tempt = pd.crosstab(df['ClumpThickness'], df['Class'])
+tempt = pd.crosstab(df['ClumpThickness'], df['Class'])
 df.hist()
 plt.show()
     #prepare the data

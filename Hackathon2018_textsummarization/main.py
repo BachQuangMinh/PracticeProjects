@@ -2,7 +2,7 @@
 """
 Created on Sun Nov  5 15:14:25 2017
 
-@author: Thach.le2017
+@author: Team MTQ
 """
 
 import textrank
